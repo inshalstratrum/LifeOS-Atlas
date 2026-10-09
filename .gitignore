@@ -1,0 +1,41 @@
+# Database & Runtime Data (Excludes local file index & private vault data)
+data/*.db
+data/*.sqlite
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+data/audit_logs/*
+!data/audit_logs/.gitkeep
+data/proposals/*
+!data/proposals/.gitkeep
+data/rollback_bundles/*
+!data/rollback_bundles/.gitkeep
+data/rollback_test_fixture.txt
+
+# Archive bundles & temporary backups
+*.zip
+*.rar
+*.7z
+*.tar.gz
+=
+
+# Python cache & environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Assistant scratch folders
+.kilo/
+.codex/
+.agents/
+.kilocodeignore
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/

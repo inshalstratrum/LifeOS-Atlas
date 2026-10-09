@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "roots": [
+    {
+      "label": "Codex Audit",
+      "path": "D:\\LifeOS\\LifeOS_Codex_Audit",
+      "role": "architecture_audit",
+      "authority": "Control Plane + Historical Authority",
+      "storage_role": "control_audit_authority",
+      "editing_state": "read_only_in_atlas",
+      "canonical_policy": "never_silently_active_canonical",
+      "update_policy": "audit_control_append_or_replace_only_when_explicitly_authorised",
+      "health_label": "Historical authority, not active canonical"
+    },
+    {
+      "label": "Shali vault",
+      "path": "D:\\LifeOS\\Shali_LifeOS_Vault",
+      "role": "live_knowledge_vault",
+      "authority": "Active LifeOS Vault",
+      "storage_role": "active_canonical_candidate",
+      "editing_state": "controlled_owner_updates_only",
+      "canonical_policy": "canonical_only_when_declared_by_override_or_rule",
+      "update_policy": "controlled_canonical_update",
+      "health_label": "Active vault under consent ladder"
+    },
+    {
+      "label": "Backup mirror",
+      "path": "C:\\LifeOS\\LifeOS_Backups\\Shali_LifeOS_Vault_Mirror",
+      "role": "backup_mirror",
+      "authority": "Backup Mirror",
+      "storage_role": "read_only_recovery_mirror",
+      "editing_state": "immutable_mirror",
+      "canonical_policy": "never_canonical",
+      "update_policy": "read_only_mirror",
+      "health_label": "Recovery context only"
+    },
+    {
+      "label": "Kilo audit workspace",
+      "path": "D:\\LifeOS\\Kilo_ReadOnly_Audit_Workspace",
+      "role": "audit_workspace",
+      "authority": "Sanitised Audit Sandbox",
+      "storage_role": "read_only_audit_evidence",
+      "editing_state": "immutable_audit_evidence",
+      "canonical_policy": "never_canonical",
+      "update_policy": "read_only_audit_evidence",
+      "health_label": "Read-only evidence sandbox"
+    }
+  ]
+}

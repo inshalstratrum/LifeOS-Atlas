@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "protectedFolders": [
+    "00_INBOX_DUMP_ALL_FILES",
+    "01_CAPTURE_CONVERSATIONS",
+    "10_TO_ONE",
+    "20_SELF",
+    "30_OTHER",
+    "40_MAAL",
+    "80_ATTACHMENTS_MEDIA",
+    "90_ARCHIVE",
+    ".obsidian",
+    "credentials",
+    "secrets",
+    "tokens",
+    "keys",
+    "passwords",
+    "private"
+  ],
+  "protectedCategories": [
+    {"pattern": "00_INBOX_DUMP_ALL_FILES", "category": "Inbox Dump"},
+    {"pattern": "01_CAPTURE_CONVERSATIONS", "category": "Conversation Capture"},
+    {"pattern": "10_TO_ONE", "category": "Deen / Values Protected"},
+    {"pattern": "20_SELF", "category": "Self / Identity Protected"},
+    {"pattern": "30_OTHER", "category": "Other / Relationships Protected"},
+    {"pattern": "40_MAAL", "category": "Maal / Business Protected"},
+    {"pattern": "80_ATTACHMENTS_MEDIA", "category": "Attachments / Media Protected"},
+    {"pattern": "90_ARCHIVE", "category": "Archive Protected"},
+    {"pattern": ".obsidian", "category": "Obsidian System Protected"},
+    {"pattern": "credentials|secrets|tokens|keys|passwords|private", "category": "Sensitive Secret Material"}
+  ],
+  "policy": {
+    "protected_records": "count_only",
+    "never_expose": ["filename", "relativePath", "folderChain", "extension", "safe_full_path", "copy_path"],
+    "basis": "folder or path pattern configured by owner"
+  }
+}

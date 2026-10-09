@@ -1,0 +1,328 @@
+{
+  "schema_version": 2,
+  "description": "Deterministic Atlas classification rules. Rules use only root, folder chain, relative path, filename, extension, root role, and explicit overrides.",
+  "departments": [
+    "Executive & Governance",
+    "Soul / Values / TO_ONE",
+    "Self / Identity / Personality",
+    "Other / Family / Relationships",
+    "Maal / Career / Clients / Finance",
+    "LifeOS Product & Architecture",
+    "Technical / Development",
+    "Design / UI / UX",
+    "Research / Tool Stack",
+    "Evidence / Archive / Backup",
+    "Memory, Data & Permissions",
+    "Operations & Automation",
+    "Needs Review"
+  ],
+  "lifecycle_roadmap": [
+    "Foundation",
+    "Audit & Classification",
+    "Architecture",
+    "Specification",
+    "Prototype",
+    "Controlled Pilot",
+    "Build",
+    "Operations",
+    "Future",
+    "Archived"
+  ],
+  "governance_route": [
+    "Gate A / Consolidation",
+    "Official Vendor Verification",
+    "Platform Selection",
+    "Implementation Specification",
+    "Approved Empty Base",
+    "Controlled Owner-Data Pilot",
+    "Permission / Audit / Backup / Restore Validation",
+    "Gradual Expansion"
+  ],
+  "visualisation_templates": [
+    "Architecture Map",
+    "Memory Flow",
+    "Data / Entity Relationship Map",
+    "Governance / Approval Chain",
+    "Agent Permission Boundary",
+    "UI / Screen Architecture Map",
+    "Research / Tool Evaluation Scorecard",
+    "Technical Delivery Pipeline",
+    "Backup / Integrity Map",
+    "Generic Record Card"
+  ],
+  "rules": [
+    {
+      "id": "ROOT_BACKUP_MIRROR",
+      "priority": 1000,
+      "match": {"root": ["Backup mirror"]},
+      "assign": {
+        "department": "Evidence / Archive / Backup",
+        "lifecycle": "Archived",
+        "governance_gate": "Permission / Audit / Backup / Restore Validation",
+        "phase": "Recovery Mirror",
+        "priority": "P4",
+        "update_policy": "read_only_mirror",
+        "memory_type": "Backup mirror",
+        "architecture_layer": "Recovery",
+        "visualisation_type": "Backup / Integrity Map",
+        "confidence": 1.0
+      },
+      "reason": "Backup root is recovery context only and can never be canonical."
+    },
+    {
+      "id": "ROOT_KILO_AUDIT",
+      "priority": 990,
+      "match": {"root": ["Kilo audit workspace"]},
+      "assign": {
+        "department": "Evidence / Archive / Backup",
+        "lifecycle": "Audit & Classification",
+        "governance_gate": "Permission / Audit / Backup / Restore Validation",
+        "phase": "Audit Evidence",
+        "priority": "P4",
+        "update_policy": "read_only_audit_evidence",
+        "memory_type": "Audit evidence",
+        "architecture_layer": "Evidence",
+        "visualisation_type": "Backup / Integrity Map",
+        "confidence": 1.0
+      },
+      "reason": "Kilo audit workspace is read-only audit evidence and is never canonical."
+    },
+    {
+      "id": "ARCH_MASTER_BLUEPRINT",
+      "priority": 940,
+      "match": {"relative_path": ["05_MASTER_ARCHITECTURE_BLUEPRINT"], "folder_chain": ["05_MASTER_ARCHITECTURE_BLUEPRINT"]},
+      "assign": {
+        "department": "LifeOS Product & Architecture",
+        "lifecycle": "Architecture",
+        "governance_gate": "Implementation Specification",
+        "phase": "Architecture",
+        "priority": "P0",
+        "update_policy": "controlled_canonical_update",
+        "memory_type": "Architecture memory",
+        "architecture_layer": "System blueprint",
+        "visualisation_type": "Architecture Map",
+        "confidence": 0.98
+      },
+      "reason": "Exact architecture blueprint path naming."
+    },
+    {
+      "id": "EXEC_ROOT_LEVEL_MASTER_CONTROL",
+      "priority": 900,
+      "match": {
+        "relative_path": ["^(AGENTS|README|MASTER|EXECUTIVE|CONTROL|AUTHORITY|GOVERNANCE|COMMAND|SOURCE_REGISTRY|CURRENT_STATUS)"],
+        "filename": ["^(AGENTS|README|MASTER|EXECUTIVE|CONTROL|AUTHORITY|GOVERNANCE|COMMAND|SOURCE_REGISTRY|CURRENT_STATUS)"]
+      },
+      "assign": {
+        "department": "Executive & Governance",
+        "lifecycle": "Foundation",
+        "governance_gate": "Gate A / Consolidation",
+        "phase": "Executive Control",
+        "priority": "P0",
+        "update_policy": "controlled_canonical_update",
+        "memory_type": "Governance memory",
+        "architecture_layer": "Control plane",
+        "visualisation_type": "Governance / Approval Chain",
+        "confidence": 0.92
+      },
+      "reason": "Explicit root-level master, executive, control, authority, governance, command, or registry naming."
+    },
+    {
+      "id": "RESEARCH_DEFAULT",
+      "priority": 820,
+      "match": {"folder_chain": ["50_RESEARCH_KNOWLEDGE"], "relative_path": ["50_RESEARCH_KNOWLEDGE"]},
+      "assign": {
+        "department": "Research / Tool Stack",
+        "lifecycle": "Official Vendor Verification",
+        "governance_gate": "Official Vendor Verification",
+        "phase": "Research",
+        "priority": "P2",
+        "update_policy": "review_before_change",
+        "memory_type": "Research memory",
+        "architecture_layer": "Tool stack evaluation",
+        "visualisation_type": "Research / Tool Evaluation Scorecard",
+        "confidence": 0.9
+      },
+      "reason": "50_RESEARCH_KNOWLEDGE path maps to research and tool evaluation by default."
+    },
+    {
+      "id": "MEMORY_DATA_PERMISSION",
+      "priority": 800,
+      "match": {"any": ["memory", "database", "permission", "role", "access", "schema", "retrieval", "bridge", "identity", "profile"]},
+      "assign": {
+        "department": "Memory, Data & Permissions",
+        "lifecycle": "Specification",
+        "governance_gate": "Permission / Audit / Backup / Restore Validation",
+        "phase": "Memory & Permissions",
+        "priority": "P1",
+        "update_policy": "review_before_change",
+        "memory_type": "Memory governance",
+        "architecture_layer": "Data and permission layer",
+        "visualisation_type": "Memory Flow",
+        "confidence": 0.86
+      },
+      "reason": "Path or filename contains deterministic memory, data, permission, identity, schema, access, retrieval, or bridge terms."
+    },
+    {
+      "id": "TECHNICAL_DEVELOPMENT",
+      "priority": 760,
+      "match": {"any": ["technical", "development", "engineering", "code", "backend", "frontend", "integration", "scripts", "api", "database", "schema"]},
+      "assign": {
+        "department": "Technical / Development",
+        "lifecycle": "Build",
+        "governance_gate": "Implementation Specification",
+        "phase": "Technical Delivery",
+        "priority": "P2",
+        "update_policy": "review_before_change",
+        "memory_type": "Technical memory",
+        "architecture_layer": "Implementation",
+        "visualisation_type": "Technical Delivery Pipeline",
+        "confidence": 0.82
+      },
+      "reason": "Path or filename contains deterministic technical delivery terms."
+    },
+    {
+      "id": "DESIGN_UI_UX",
+      "priority": 740,
+      "match": {"any": ["design", "ui", "ux", "figma", "prototype", "visual", "wireframe", "brand"]},
+      "assign": {
+        "department": "Design / UI / UX",
+        "lifecycle": "Prototype",
+        "governance_gate": "Implementation Specification",
+        "phase": "Design",
+        "priority": "P2",
+        "update_policy": "review_before_change",
+        "memory_type": "Design memory",
+        "architecture_layer": "Experience layer",
+        "visualisation_type": "UI / Screen Architecture Map",
+        "confidence": 0.82
+      },
+      "reason": "Path or filename contains deterministic design, UI, UX, prototype, visual, wireframe, or brand terms."
+    },
+    {
+      "id": "OPERATIONS_AUTOMATION",
+      "priority": 720,
+      "match": {"any": ["automation", "workflow", "pipeline", "agent", "orchestration", "ops"]},
+      "assign": {
+        "department": "Operations & Automation",
+        "lifecycle": "Operations",
+        "governance_gate": "Controlled Owner-Data Pilot",
+        "phase": "Operations",
+        "priority": "P1",
+        "update_policy": "review_before_change",
+        "memory_type": "Operations memory",
+        "architecture_layer": "Orchestration layer",
+        "visualisation_type": "Agent Permission Boundary",
+        "confidence": 0.84
+      },
+      "reason": "Path or filename contains deterministic automation, workflow, pipeline, agent, or orchestration terms."
+    },
+    {
+      "id": "ARCHIVE_HISTORICAL",
+      "priority": 700,
+      "match": {"any": ["archive", "historical", "deprecated", "old", "superseded"]},
+      "assign": {
+        "department": "Evidence / Archive / Backup",
+        "lifecycle": "Archived",
+        "governance_gate": "Gate A / Consolidation",
+        "phase": "Archive",
+        "priority": "P4",
+        "update_policy": "immutable_archive",
+        "memory_type": "Archive memory",
+        "architecture_layer": "Historical evidence",
+        "visualisation_type": "Backup / Integrity Map",
+        "confidence": 0.88
+      },
+      "reason": "Path or filename contains deterministic archive, historical, deprecated, old, or superseded terms."
+    },
+    {
+      "id": "DEEN_TO_ONE",
+      "priority": 650,
+      "match": {"folder_chain": ["10_TO_ONE"], "any": ["deen", "quran", "hadith", "soul", "values", "akhlaq", "tawakkul", "taqwa"]},
+      "assign": {
+        "department": "Soul / Values / TO_ONE",
+        "lifecycle": "Foundation",
+        "governance_gate": "Gate A / Consolidation",
+        "phase": "Values",
+        "priority": "P1",
+        "update_policy": "controlled_canonical_update",
+        "memory_type": "Values memory",
+        "architecture_layer": "Deen kernel",
+        "visualisation_type": "Governance / Approval Chain",
+        "confidence": 0.8
+      },
+      "reason": "Path naming maps to values, soul, Quran, Hadith, or Deen layer."
+    },
+    {
+      "id": "SELF_IDENTITY",
+      "priority": 620,
+      "match": {"folder_chain": ["20_SELF"], "any": ["self", "identity", "personality", "character", "nafs", "aql"]},
+      "assign": {
+        "department": "Self / Identity / Personality",
+        "lifecycle": "Foundation",
+        "governance_gate": "Gate A / Consolidation",
+        "phase": "Identity",
+        "priority": "P2",
+        "update_policy": "review_before_change",
+        "memory_type": "Identity memory",
+        "architecture_layer": "Nafs and Aql",
+        "visualisation_type": "Generic Record Card",
+        "confidence": 0.78
+      },
+      "reason": "Path naming maps to self, identity, personality, character, Nafs, or Aql layer."
+    },
+    {
+      "id": "OTHER_FAMILY_RELATIONSHIPS",
+      "priority": 610,
+      "match": {"folder_chain": ["30_OTHER"], "any": ["family", "relationship", "other", "nasl", "khalq", "community"]},
+      "assign": {
+        "department": "Other / Family / Relationships",
+        "lifecycle": "Operations",
+        "governance_gate": "Gradual Expansion",
+        "phase": "Relationships",
+        "priority": "P2",
+        "update_policy": "review_before_change",
+        "memory_type": "Relationship memory",
+        "architecture_layer": "NASL_KHALQ",
+        "visualisation_type": "Generic Record Card",
+        "confidence": 0.78
+      },
+      "reason": "Path naming maps to family, relationships, NASL, KHALQ, community, or other-rights layer."
+    },
+    {
+      "id": "MAAL_CAREER_CLIENTS",
+      "priority": 600,
+      "match": {"folder_chain": ["40_MAAL"], "any": ["maal", "career", "client", "finance", "upwork", "business", "proposal", "restaurant", "spicy"]},
+      "assign": {
+        "department": "Maal / Career / Clients / Finance",
+        "lifecycle": "Operations",
+        "governance_gate": "Controlled Owner-Data Pilot",
+        "phase": "Maal",
+        "priority": "P1",
+        "update_policy": "review_before_change",
+        "memory_type": "Business memory",
+        "architecture_layer": "Maal",
+        "visualisation_type": "Technical Delivery Pipeline",
+        "confidence": 0.78
+      },
+      "reason": "Path naming maps to Maal, career, client, finance, Upwork, business, proposal, or restaurant operations."
+    },
+    {
+      "id": "DEFAULT_NEEDS_REVIEW",
+      "priority": 0,
+      "match": {"any": [".*"]},
+      "assign": {
+        "department": "Needs Review",
+        "lifecycle": "Audit & Classification",
+        "governance_gate": "Gate A / Consolidation",
+        "phase": "Triage",
+        "priority": "P2",
+        "update_policy": "review_before_change",
+        "memory_type": "Unclassified metadata",
+        "architecture_layer": "Unclassified",
+        "visualisation_type": "Generic Record Card",
+        "confidence": 0.35
+      },
+      "reason": "No higher-priority deterministic rule matched. Review before change."
+    }
+  ]
+}

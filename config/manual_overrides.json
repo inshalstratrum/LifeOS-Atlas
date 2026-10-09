@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "description": "Owner-approved overrides. These are the only place, besides explicit deterministic rules, where Atlas may declare canonical ownership, supersession, or source/evidence links.",
+  "override_template": {
+    "target": {
+      "id": "",
+      "rootLabel": "",
+      "relativePath": ""
+    },
+    "owner": "Inshal Ijaz",
+    "override_reason": "",
+    "timestamp_utc": "YYYY-MM-DDTHH:mm:ssZ",
+    "assignments": {
+      "department": "",
+      "lifecycle": "",
+      "governance_gate": "",
+      "phase": "",
+      "priority": "",
+      "status": "",
+      "sensitivity": "",
+      "memory_type": "",
+      "memory_layer": "",
+      "architecture_layer": "",
+      "visualisation_type": "",
+      "canonical_id": "",
+      "is_canonical": null,
+      "canonical_owner": "",
+      "related_ids": [],
+      "source_refs": [],
+      "evidence_links": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "next_review": "",
+      "governance_action": ""
+    }
+  },
+  "overrides": []
+}

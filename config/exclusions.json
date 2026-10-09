@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "excluded_terms": [
+    ".obsidian",
+    "01_conversation_archive",
+    "raw dumps",
+    "raw_dump",
+    "raw conversations",
+    "raw_conversation",
+    "cognitive abyss",
+    "session dumps",
+    "source_cards",
+    "source-card",
+    "source cards",
+    "99_admin_backup",
+    "80_attachments_media",
+    "08_mirror_manifests",
+    "09_panel_memory_bridge_reference_mirror",
+    "source_and_mirror_manifests",
+    "kilo_readonly_audit_workspace",
+    "backup mirror",
+    "lifeos_backups"
+  ],
+  "policy": "Excluded paths cannot be scanned even if a similar path appears in the scope tree."
+}

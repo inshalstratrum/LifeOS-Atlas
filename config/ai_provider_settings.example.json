@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "default_mode": "Local only",
+  "modes": [
+    "Local only",
+    "Gemini",
+    "OpenRouter"
+  ],
+  "environment_variables": [
+    "LIFEOS_GEMINI_API_KEY",
+    "LIFEOS_OPENROUTER_API_KEY"
+  ],
+  "policy": "No API key in HTML, JavaScript, SQLite, logs, or source code. Calls require explicit owner confirmation."
+}

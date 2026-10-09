@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LifeOS Atlas</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="topbar">
+    <button id="navToggle" class="icon-button" aria-label="Toggle sidebar" aria-expanded="true" title="Toggle sidebar">&#9776;</button>
+    <div class="brand">
+      <span class="brand-mark">A</span>
+      <div>
+        <h1>LifeOS Atlas</h1>
+        <p>Local cleanup control system</p>
+      </div>
+    </div>
+    <label class="search-box">
+      <span>Search library</span>
+      <input id="searchInput" type="search" autocomplete="off" placeholder="File, purpose, phase, department or path" />
+    </label>
+    
+    <div id="groupNav" class="group-nav" hidden>
+      <button id="prevGroupBtn" class="icon-button" aria-label="Previous Group" title="Previous Group">&#8592;</button>
+      <span id="groupNavLabel">Group 0 of 0</span>
+      <button id="nextGroupBtn" class="icon-button" aria-label="Next Group" title="Next Group">&#8594;</button>
+    </div>
+    
+    <button id="refreshSourcesBtn" class="secondary" title="Refresh local hashes from authorised source roots">Refresh source changes</button>
+    
+    <div class="status-pill" id="serverStatus">Local only</div>
+  </header>
+
+  <div class="layout" id="appLayout">
+    <nav id="sideNav" class="side-nav" aria-label="Atlas workspaces">
+      <div class="nav-heading">Workspaces</div>
+      <button class="nav-item active" data-view="home">Home</button>
+      <button class="nav-item" data-view="decisions">Your Decisions</button>
+      <button class="nav-item" data-view="library">Library</button>
+      <button class="nav-item" data-view="duplicates">Duplicate / Version</button>
+      <button class="nav-item" data-view="consolidate">Consolidate</button>
+      <button class="nav-item" data-view="canonical">Canonical Registry</button>
+      <div class="nav-heading">Saved Merge Files</div>
+      <button class="nav-item sub-item" data-view="saved-copies">Saved copies</button>
+      <button class="nav-item sub-item" data-view="resolved">Resolved without merge</button>
+      <div class="nav-heading">Audits</div>
+      <button class="nav-item sub-item" data-view="audit-empty">Empty / Placeholder</button>
+      <button class="nav-item" data-view="ai">AI Settings</button>
+      <div class="nav-boundary">
+        <strong>Safety boundary</strong>
+        <span>Read-only sources</span>
+        <span>Proposals stay inside Atlas</span>
+      </div>
+    </nav>
+    <div id="sidebarResizer" class="sidebar-resizer" role="separator" aria-label="Resize sidebar" aria-orientation="vertical" tabindex="0"></div>
+
+    <main id="workspace" class="workspace" tabindex="-1">
+      <section id="home" class="view active"></section>
+      <section id="decisions" class="view"></section>
+      <section id="library" class="view"></section>
+      <section id="duplicates" class="view"></section>
+      <section id="consolidate" class="view"></section>
+      <section id="canonical" class="view"></section>
+      <section id="saved-copies" class="view"></section>
+      <section id="resolved" class="view"></section>
+      <section id="audit-empty" class="view"></section>
+      <section id="ai" class="view"></section>
+    </main>
+  </div>
+
+  <aside id="drawer" class="drawer" aria-hidden="true"></aside>
+  
+  <div id="manualMergeModal" class="modal" hidden>
+    <div class="modal-content">
+      <header>
+        <h2>Manual Merge Editor</h2>
+        <button id="closeMergeModalBtn" class="icon-button" aria-label="Close">&#10006;</button>
+      </header>
+      <div class="modal-body split-pane">
+        <div class="merge-sources">
+          <h3>Source Blocks</h3>
+          <div id="mergeSourceBlocks"></div>
+        </div>
+        <div class="merge-editor">
+          <h3>Working Copy</h3>
+          <textarea id="mergeWorkingText"></textarea>
+          <div class="merge-controls">
+            <label>Destination Folder: 
+              <input type="text" id="mergeDestFolder" readonly placeholder="Choose..." />
+              <button id="pickFolderBtn">Pick Folder</button>
+            </label>
+            <label>Output Filename: 
+              <input type="text" id="mergeDestFilename" />
+            </label>
+            <button id="saveManualMergeBtn" class="primary">Save new owner-approved merged copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="aiSettingsModal" class="modal" hidden>
+    <div class="modal-content" style="width: min(90vw, 500px); height: auto;">
+      <header>
+        <h2>AI Settings & Network</h2>
+        <button id="closeAiSettingsModalBtn" class="icon-button" aria-label="Close">&#10006;</button>
+      </header>
+      <div class="modal-body" style="padding: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+        <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: bold;">
+          <input type="checkbox" id="aiNetworkToggle" /> Allow external API calls
+        </label>
+        <p style="color: var(--muted); font-size: 0.85rem; margin-top: -0.5rem;">If disabled, Atlas remains 100% local and disconnected.</p>
+        
+        <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+          Provider/Model:
+          <select id="aiProviderSelect">
+            <option value="Local only">Local only (Disconnected)</option>
+            <option value="Gemini">Gemini 3.1 Pro (High)</option>
+            <option value="OpenRouter">OpenRouter (Custom)</option>
+          </select>
+        </label>
+        
+        <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+          Gemini API Key (BYOK):
+          <input type="password" id="aiGeminiKey" placeholder="Will not be saved to disk" />
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+          OpenRouter API Key (BYOK):
+          <input type="password" id="aiOpenRouterKey" placeholder="Will not be saved to disk" />
+        </label>
+        
+        <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+          Temperature:
+          <input type="number" id="aiTemperature" min="0" max="1" step="0.1" value="0.2" />
+        </label>
+        
+        <button id="saveAiSettingsBtn" class="primary" style="margin-top: 1rem;">Apply Session Settings</button>
+      </div>
+    </div>
+  </div>
+  <div id="aiTextBar" class="ai-text-bar" hidden>
+    <div>
+      <span>Copy for AI</span>
+      <strong id="aiTextPreview">Selected text</strong>
+    </div>
+    <button id="copySelectionForAI">Copy selected text</button>
+    <button id="askAISelectionBtn">Ask AI about selected text</button>
+    <button id="dismissAISelection" class="secondary">Dismiss</button>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

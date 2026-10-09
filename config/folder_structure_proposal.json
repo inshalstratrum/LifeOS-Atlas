@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "software_development_structure": [
+    "Discovery and Concept Development",
+    "LifeOS Core Kernel",
+    "Planning and Requirements",
+    "Architecture, System Design and Blueprints",
+    "Prototyping, Implementation and Coding",
+    "Reference / Archive"
+  ],
+  "master_library": [
+    "Executive Governance Book",
+    "Architecture and Memory Book",
+    "Product / Apps Library",
+    "Technical Development Library",
+    "Design / UI / UX Library",
+    "Research and Evidence Library",
+    "Operations and Automation Library",
+    "Navigation / Index / Metadata Library",
+    "Controlled Reference Archive"
+  ],
+  "policy": "Planner proposes destinations only; it never creates folders or moves source files."
+}
